@@ -1,0 +1,13 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: 2026.08.14-14-g8151d28
+_src_path: gh:scientific-python/cookie
+backend: uv
+docs: zensical
+email: abk@mac.com
+full_name: Alex Kerney
+license: Apache
+org: xpublish-community
+project_name: xpublish-redis-cache
+project_short_description: Redis backed cache implementation for Xpublish servers
+url: https://github.com/xpublish-community/xpublish-redis-cache
+vcs: true
