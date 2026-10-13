@@ -29,7 +29,14 @@ classifiers = [
   "Topic :: Scientific/Engineering",
   "Typing :: Typed",
 ]
-dependencies = []
+dependencies = [
+  "cachetoolsutils",
+  "redis",
+  "xpublish",
+]
+
+[project.entry-points."xpublish.plugin"]
+redis_cache = "xpublish_redis_cache:RedisCacheProvider"
 
 [project.urls]
 Homepage = "https://github.com/xpublish-community/xpublish-redis-cache"
@@ -40,15 +47,22 @@ Changelog = "https://github.com/xpublish-community/xpublish-redis-cache/releases
 
 [dependency-groups]
 test = [
+  "fakeredis",
+  "httpx2",
   "pytest >=9",
   "pytest-cov >=7",
 ]
 dev = [
   { include-group = "test" },
+  "mypy",
 ]
 docs = [
     "zensical>=0.0.20",
 ]
+
+
+[tool.uv.sources]
+xpublish = { path = "../xpublish", editable = true }
 
 
 [tool.pytest]
@@ -80,6 +94,15 @@ enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
 warn_unreachable = true
 disallow_untyped_defs = false
 disallow_incomplete_defs = false
+
+[[tool.mypy.overrides]]
+module = ["CacheToolsUtils", "cachetools", "fakeredis"]
+follow_untyped_imports = true
+
+[[tool.mypy.overrides]]
+# xpublish is not (yet) typed strictly enough to follow
+module = ["xpublish", "xpublish.*"]
+ignore_missing_imports = true
 
 [[tool.mypy.overrides]]
 module = "xpublish_redis_cache.*"
